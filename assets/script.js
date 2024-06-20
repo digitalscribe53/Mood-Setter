@@ -11,18 +11,19 @@ function fetchGifData() {
             return response.json();
         })
         .then(function (GIFdata) {
-            console.log(GIFdata);
+            
             for (i = 0; i < GIFdata.data.length; i++) {
                 let figure = document.createElement('figure');
                 let image = document.createElement('img');
                 let caption = document.createElement('figcaption');
                 image.src = GIFdata.data[i].images.fixed_height.url;
                 image.alt = GIFdata.data[i].title;
-                caption.textContent = GIFdata.data[i].title;
-                figure.append(image, caption);
-                let gifDisplay = document.querySelector('#gifDisplay')
+                //caption.textContent = GIFdata.data[i].title;
+                figure.append(image);
+                let gifDisplay = document.querySelector('#gif-box')
                 gifDisplay.append(figure);
             }
+
         })
 };
 
