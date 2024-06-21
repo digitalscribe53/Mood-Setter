@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Store the updated array back to local storage
         localStorage.setItem('userDataArray', JSON.stringify(userDataArray));
 
+        fetchGifData(user.interests);
+
         console.log(user);
         closeModal();
     };
@@ -57,14 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event listener for "My Mood" button to open the modal
     myMoodButton.addEventListener('click', openModal);
 });
+
+// GIPHY API Key
 const GIPHYAPIKey = "ATZHOCugJY4c84N9kSARyOvLB2gL4xi6";
-const userInterests = document.querySelector("#UserInterests"); //change id after querySelector to match form
 
 //returns 5 GIFs in repsonse to keywords from the user's interests field in the form
-//const GIFQueryURL = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHYAPIKey}&q=${userInterests}&limit=5&offset=0&rating=r&lang=en&bundle=messaging_non_clips`;
-const GIFQueryURL = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHYAPIKey}&q=cats&limit=5&offset=0&rating=r&lang=en&bundle=messaging_non_clips`;
 
-function fetchGifData() {
+// const userInterests = JSON.parse(localStorage.getItem(userDataArray[0].interests));
+function fetchGifData(userInterests) {
+
+const GIFQueryURL = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHYAPIKey}&q=${userInterests}&limit=5&offset=0&rating=r&lang=en&bundle=messaging_non_clips`;
+console.log(GIFQueryURL);
+
     fetch(GIFQueryURL)
         .then(function (response) {
             return response.json();
@@ -84,4 +90,3 @@ function fetchGifData() {
         })
 };
 
-fetchGifData();
