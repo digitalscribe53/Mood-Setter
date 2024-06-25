@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveUserButton = document.getElementById('saveUser');
     const myMoodButton = document.getElementById('myMoodButton');
     const userForm = document.getElementById('userForm');
-
     const musicBox = document.getElementById('music-box');
 
     // Function to open the modal and clear the form inputs
@@ -123,25 +122,27 @@ const GIPHYAPIKey = "ATZHOCugJY4c84N9kSARyOvLB2gL4xi6";
 // Function to fetch GIF data from GIPHY API
 function fetchGifData(userInterests) {
     const GIFQueryURL = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHYAPIKey}&q=${userInterests}&limit=5&offset=0&rating=r&lang=en&bundle=messaging_non_clips`;
-    console.log(GIFQueryURL);
-
+    
     fetch(GIFQueryURL)
         .then(function (response) {
             return response.json();
         })
         .then(function (GIFdata) {
+            let gifDisplay = document.querySelector('#gif-box');
+            // Clear previous GIFs
+            gifDisplay.innerHTML = '';
+            
             for (let i = 0; i < GIFdata.data.length; i++) {
                 let figure = document.createElement('figure');
                 let image = document.createElement('img');
                 image.src = GIFdata.data[i].images.fixed_height.url;
                 image.alt = GIFdata.data[i].title;
                 figure.append(image);
-                let gifDisplay = document.querySelector('#gif-box')
                 gifDisplay.append(figure);
             }
         })
-}
-
+    };
+     
 // Function to set the theme based on the user's mood
 function setTheme() {
     // pulls the most recent user from local storage
@@ -162,7 +163,6 @@ function setTheme() {
             break;
         case 'CHILL' :
             document.querySelector('#outer-box').classList.add('chill');
-
             break;
         case 'LOVE':
             document.querySelector('#outer-box').classList.add('love');
@@ -170,10 +170,8 @@ function setTheme() {
         case 'INSPIRED':
             document.querySelector('#outer-box').classList.add('inspired');
             break;
-
         case 'HYPE' :
             document.querySelector('#outer-box').classList.add('hype');
-
             break;
         default:
             document.querySelector('#outer-box').classList.add('default');
@@ -181,7 +179,6 @@ function setTheme() {
 
     // takes the mood key from the user object 
     // uses switch case to handle their mood
-
 }
 
 // Function to fetch data from YouTube API
@@ -232,4 +229,5 @@ const fetchVideoDetails = (videoIds, musicBox) => {
             }
         })
         .catch(error => console.error('Error fetching video details:', error));
-};
+    }
+
