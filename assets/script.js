@@ -60,9 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setTheme() {
-    // pulling the most recent user from local storage
+    // pulls the most recent user from local storage
     var savedUserData = JSON.parse(localStorage.getItem('userDataArray'));
-    var lastSavedUser = savedUserData[savedUserData.length-1] // This will pull the most recently added user in the localstorage
+    var lastSavedUser = savedUserData[savedUserData.length-1]
     var mood = lastSavedUser.mood;
     console.log(mood);
     switch (mood.toUpperCase()) {
@@ -75,8 +75,8 @@ function setTheme() {
         case 'ANGRY' :
             document.querySelector('#outer-box').classList.add('angry');
             break;
-        case 'CALM' :
-            document.querySelector('#outer-box').classList.add('calm');
+        case 'CHILL' :
+            document.querySelector('#outer-box').classList.add('chill');
             break;
         case 'LOVE' :
             document.querySelector('#outer-box').classList.add('love');
@@ -84,12 +84,12 @@ function setTheme() {
         case 'INSPIRED' :
             document.querySelector('#outer-box').classList.add('inspired');
             break;
-        case 'SPONTANEOUS' :
-            document.querySelector('#outer-box').classList.add('spontaneous');
+        case 'HYPE' :
+            document.querySelector('#outer-box').classList.add('hype');
             break;
         default:
             document.querySelector('#outer-box').classList.add('default');
     }
-    // take the mood key from the user object 
-    // build our switch case to handle their mood
+    // takes the mood key from the user object 
+    // uses switch case to handle their mood
 }

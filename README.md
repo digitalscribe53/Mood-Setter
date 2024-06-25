@@ -105,7 +105,7 @@ We welcome contributions to the **Mood Setter** project! Please follow these ste
 5. Create a new Pull Request.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://mit-license.org/) file for details.
 
 ## Acknowledgements
 - Thanks to [YouTube](https://www.youtube.com/) for their API.
