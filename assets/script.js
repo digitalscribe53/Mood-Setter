@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Store the updated array back to local storage
         localStorage.setItem('userDataArray', JSON.stringify(userDataArray));
 
+        fetchGifData(user.interests);
+
         console.log(user);
         closeModal();
     };
@@ -59,6 +61,38 @@ document.addEventListener('DOMContentLoaded', () => {
     myMoodButton.addEventListener('click', openModal);
 });
 
+giphyapi
+// GIPHY API Key
+const GIPHYAPIKey = "ATZHOCugJY4c84N9kSARyOvLB2gL4xi6";
+
+//returns 5 GIFs in repsonse to keywords from the user's interests field in the form
+
+// const userInterests = JSON.parse(localStorage.getItem(userDataArray[0].interests));
+function fetchGifData(userInterests) {
+
+const GIFQueryURL = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHYAPIKey}&q=${userInterests}&limit=5&offset=0&rating=r&lang=en&bundle=messaging_non_clips`;
+console.log(GIFQueryURL);
+
+    fetch(GIFQueryURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (GIFdata) {
+            
+            for (i = 0; i < GIFdata.data.length; i++) {
+                let figure = document.createElement('figure');
+                let image = document.createElement('img');
+                image.src = GIFdata.data[i].images.fixed_height.url;
+                image.alt = GIFdata.data[i].title;
+                figure.append(image);
+                let gifDisplay = document.querySelector('#gif-box')
+                gifDisplay.append(figure);
+            }
+
+        })
+};
+
+=======
 function setTheme() {
     // pulling the most recent user from local storage
     var savedUserData = JSON.parse(localStorage.getItem('userDataArray'));
@@ -93,3 +127,4 @@ function setTheme() {
     // take the mood key from the user object 
     // build our switch case to handle their mood
 }
+dev
