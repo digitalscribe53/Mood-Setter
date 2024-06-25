@@ -92,7 +92,6 @@ console.log(GIFQueryURL);
         })
 };
 
-=======
 function setTheme() {
     // pulling the most recent user from local storage
     var savedUserData = JSON.parse(localStorage.getItem('userDataArray'));
@@ -127,4 +126,3 @@ function setTheme() {
     // take the mood key from the user object 
     // build our switch case to handle their mood
 }
-dev
