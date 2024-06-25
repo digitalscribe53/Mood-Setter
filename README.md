@@ -23,7 +23,7 @@ To get started with **Mood Setter**, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/mood-setter.git
+    git clone https://github.com/digitalscribe53/Mood-Setter
     ```
 2. Navigate to the project directory:
     ```bash
@@ -113,5 +113,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact Information
 For any inquiries or feedback, please contact:
-- Name: Your Name
-- Email: your-email@example.com
+- Name: Emily Myhand, Kent Ball, Lily Ebadi, Hannah Mancill
+- Email: ema.angelic@outlook.com, kent.vincent.ball@gmail.com, Lilly888_ebadi@yahoo.com, mancillh@gmail.com
