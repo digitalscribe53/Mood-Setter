@@ -41,6 +41,38 @@ html, body {
     align-items: center;
 }
 
+.happy {
+    background-color: rgb(250, 250, 52) !important;
+}
+
+.default {
+    background-color: grey !important;
+}
+
+.sad {
+    background-color: rgb(37, 37, 137) !important;
+}
+
+.angry {
+    background-color: rgb(165, 23, 23) !important;
+}
+
+.calm {
+    background-color: rgb(94, 178, 207) !important;
+}
+
+.love {
+    background-color: rgb(229, 102, 123) !important;
+}
+
+.inspired {
+    background-color: rgb(92, 0, 128) !important;
+}
+
+.spontaneous {
+    background-color: rgb(255, 108, 3) !important;
+}
+
 @media screen and (max-width: 900px) {
     #music-box, #gif-box {
         width: 50%;
