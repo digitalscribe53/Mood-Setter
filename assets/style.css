@@ -64,6 +64,9 @@ html, body {
     background-color: rgb(255, 108, 3) !important;
 }
 
+.giphy-logo {
+    margin-top: 80px;
+  
 .glowing-modal {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
 }
