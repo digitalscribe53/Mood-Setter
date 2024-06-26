@@ -34,6 +34,56 @@ html, body {
     justify-content: center;
     align-items: center;
 }
+
+.happy {
+    background-color: rgb(255, 255, 104) !important;
+}
+
+.sad {
+    background-color: rgb(37, 37, 137) !important;
+}
+
+.angry {
+    background-color: rgb(165, 23, 23) !important;
+}
+
+.chill {
+    background-color: rgb(94, 178, 207) !important;
+}
+
+.love {
+    background-color: rgb(229, 102, 123) !important;
+}
+
+.inspired {
+    background-color: rgb(92, 0, 128) !important;
+}
+
+.hype {
+    background-color: rgb(255, 108, 3) !important;
+}
+
+.glowing-modal {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+}
+
+.glowing-header, .glowing-body, .glowing-footer {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+.glowing-field .label {
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+}
+
+.glowing-input {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+}
+
+.glowing-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
 @media screen and (max-width: 900px) {
     #music-box, #gif-box {
         width: 50%;
