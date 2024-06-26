@@ -1,18 +1,15 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css";
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
 }
-
 #outer-box {
     width: 100%;
     height: 100%;
@@ -20,59 +17,26 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: grey;
+    background-color: black;
     margin: 0; 
 }
-
 #button-box {
     margin-bottom: 20px;
 }
-
 #music-box, #gif-box {
     height: 25%;
     width: 25%;
-    background-color: rgb(84, 81, 81);
+    background-color: pink;
     margin: 10px;
 }
-
 .box {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.happy {
-    background-color: rgb(255, 255, 104) !important;
-}
-
-.sad {
-    background-color: rgb(37, 37, 137) !important;
-}
-
-.angry {
-    background-color: rgb(165, 23, 23) !important;
-}
-
-.chill {
-    background-color: rgb(94, 178, 207) !important;
-}
-
-.love {
-    background-color: rgb(229, 102, 123) !important;
-}
-
-.inspired {
-    background-color: rgb(92, 0, 128) !important;
-}
-
-.hype {
-    background-color: rgb(255, 108, 3) !important;
-}
-
 @media screen and (max-width: 900px) {
     #music-box, #gif-box {
         width: 50%;
         transition: width 0.5s ease;
     }
 }
-
