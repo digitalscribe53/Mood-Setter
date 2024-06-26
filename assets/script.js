@@ -146,10 +146,18 @@ function fetchGifData(userInterests) {
 function setTheme() {
     // pulls the most recent user from local storage
     var savedUserData = JSON.parse(localStorage.getItem('userDataArray'));
-    var lastSavedUser = savedUserData[savedUserData.length-1]
+    if (!savedUserData || savedUserData.length === 0) {
+        console.log('No user data found in local storage.');
+        return;
+    }
+    var lastSavedUser = savedUserData[savedUserData.length - 1];
 
     var mood = lastSavedUser.mood;
-    console.log(mood);
+    console.log('Setting theme based on mood:',mood);
+
+    const outerBox = document.querySelector('#outer-box');
+    outerBox.classList.remove('happy', 'sad', 'angry', 'chill', 'love', 'inspired', 'hype', 'default');
+
     switch (mood.toUpperCase()) {
         case 'HAPPY':
             document.querySelector('#outer-box').classList.add('happy');
