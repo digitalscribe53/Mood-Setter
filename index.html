@@ -10,48 +10,52 @@
 </head>
 <body>
     <div id="outer-box" class="columns is-vcentered is-centered">
+        <div id="welcome-message" class="column is-full has-text-centered"></div> <!-- Container for the welcome message -->
         <div id="button-box" class="column is-full has-text-centered">
             <button class="button is-primary" id="myMoodButton">My Mood</button>
         </div>
+
+        <div id="music-box" class="box column is-one-quarter">test</div>
+
         <div id="music-box" class="box column is-one-quarter"></div>
+
         <div id="gif-box" class="box column is-one-quarter"></div>
     </div>
-
     <!-- Modal HTML -->
-    <div class="modal" id="userModal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head">
-                <p class="modal-card-title">User Information</p>
-                <button class="delete" aria-label="close" id="closeModal"></button>
-            </header>
-            <section class="modal-card-body">
-                <form id="userForm">
-                    <div class="field">
-                        <label class="label">Name</label>
-                        <div class="control">
-                            <input class="input" type="text" id="userName" placeholder="Enter your name">
-                        </div>
+  <div class="modal" id="userModal">
+    <div class="modal-background"></div>
+    <div class="modal-card glowing-modal">
+        <header class="modal-card-head glowing-header">
+            <p class="modal-card-title">Set Your Custom Mood</p>
+            <button class="delete" aria-label="close" id="closeModal"></button>
+        </header>
+        <section class="modal-card-body glowing-body">
+            <form id="userForm">
+                <div class="field glowing-field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <input class="input glowing-input" type="text" id="userName" placeholder="Enter your name">
                     </div>
-                    <div class="field">
-                        <label class="label">Mood</label>
-                        <div class="control">
-                            <input class="input" type="text" id="userMood" placeholder="Enter your mood">
-                        </div>
+                </div>
+                <div class="field glowing-field">
+                    <label class="label">Mood</label>
+                    <div class="control">
+                        <input class="input glowing-input" type="text" id="userMood" placeholder="Enter your mood">
                     </div>
-                    <div class="field">
-                        <label class="label">Interests</label>
-                        <div class="control">
-                            <input class="input" type="text" id="userInterests" placeholder="Enter your interests">
-                        </div>
+                </div>
+                <div class="field glowing-field">
+                    <label class="label">Interests</label>
+                    <div class="control">
+                        <input class="input glowing-input" type="text" id="userInterests" placeholder="Enter your interests">
                     </div>
-                </form>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success" id="saveUser">Save</button>
-            </footer>
-        </div>
+                </div>
+            </form>
+        </section>
+        <footer class="modal-card-foot glowing-footer">
+            <button class="button is-success" id="saveUser">Save</button>
+        </footer>
     </div>
+  </div>
 
     <script src="./assets/script.js"></script>
 </body>
