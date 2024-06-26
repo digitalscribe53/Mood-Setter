@@ -69,6 +69,28 @@ html, body {
     background-color: rgb(255, 108, 3) !important;
 }
 
+.glowing-modal {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+}
+
+.glowing-header, .glowing-body, .glowing-footer {
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+
+.glowing-field .label {
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+}
+
+.glowing-input {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+}
+
+.glowing-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+
 @media screen and (max-width: 900px) {
     #music-box, #gif-box {
         width: 50%;
