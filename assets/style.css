@@ -33,6 +33,7 @@ html, body {
     width: 25%;
     background-color: rgb(84, 81, 81);
     margin: 10px;
+    box-shadow: 0 0 50px 15px rgba(0, 255, 255, 0.4);
 }
 
 .box {
@@ -76,3 +77,11 @@ html, body {
     }
 }
 
+@media screen and (min-width: 899px) {
+    #music-box, #gif-box {
+        width: 60%;
+        height: 35%;
+        transition: width 0.5s ease;
+        transition: height 0.5s ease;
+    }
+}
