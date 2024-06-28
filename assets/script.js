@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Store the updated array back to local storage
         localStorage.setItem('userDataArray', JSON.stringify(userDataArray));
 
+        // Save the theme based on mood
+        localStorage.setItem('userTheme', mood);
+
         fetchGifData(user.interests);
         fetchYouTubeData(user.mood, musicBox); // Fetch YouTube data based on the mood
         console.log(user);
@@ -76,6 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Display welcome message on page load
     displayWelcomeMessage();
+
+    // Apply the saved theme on page load
+    setTheme();
 });
 
 // GIPHY API Key
@@ -117,123 +123,122 @@ function setTheme() {
 
     var lastSavedUser = savedUserData[savedUserData.length - 1]; // This will pull the most recently added user in the local storage
     var mood = lastSavedUser.mood;
-    console.log('Setting theme based on mood:',mood);
+    console.log('Setting theme based on mood:', mood);
 
     const outerBox = document.querySelector('#outer-box');
     outerBox.classList.remove('happy', 'sad', 'angry', 'chill', 'romantic', 'inspired', 'hype', 'default');
+    clearAnimations();
 
     switch (mood.toUpperCase()) {
         case 'HAPPY':
-            document.querySelector('#outer-box').classList.add('happy');
-               
-                // Function that creates bubble animation
-                const bubbleContainer = document.createElement("div");
-                document.querySelector('#outer-box').appendChild(bubbleContainer);
-                const bubble1 = document.createElement("div");
-                bubble1.classList.add('bubble','x1');
-                bubbleContainer.appendChild(bubble1);
-                const bubble2 = document.createElement("div");
-                bubble2.classList.add('bubble','x2');
-                bubbleContainer.appendChild(bubble2);
-                const bubble3 = document.createElement("div");
-                bubble3.classList.add('bubble','x3');
-                bubbleContainer.appendChild(bubble3);
-                const bubble4 = document.createElement("div");
-                bubble4.classList.add('bubble','x4');
-                bubbleContainer.appendChild(bubble4);
-                const bubble5 = document.createElement("div");
-                bubble5.classList.add('bubble','x5');
-                bubbleContainer.appendChild(bubble5);
-                const bubble6 = document.createElement("div");
-                bubble6.classList.add('bubble','x6');
-                bubbleContainer.appendChild(bubble6);
-                const bubble7 = document.createElement("div");
-                bubble7.classList.add('bubble','x7');
-                bubbleContainer.appendChild(bubble7);
-                const bubble8 = document.createElement("div");
-                bubble8.classList.add('bubble','x8');
-                bubbleContainer.appendChild(bubble8);
-                const bubble9 = document.createElement("div");
-                bubble9.classList.add('bubble','x9');
-                bubbleContainer.appendChild(bubble9);
-                const bubble10 = document.createElement("div");
-                bubble10.classList.add('bubble','x10');
-                bubbleContainer.appendChild(bubble10);
-                
+            outerBox.classList.add('happy');
+            createBubbles();
             break;
         case 'SAD':
-            document.querySelector('#outer-box').classList.add('sad');
+            outerBox.classList.add('sad');
             break;
         case 'ANGRY':
-            document.querySelector('#outer-box').classList.add('angry');
+            outerBox.classList.add('angry');
             break;
         case 'CALM':
-            document.querySelector('#outer-box').classList.add('calm');
+            outerBox.classList.add('calm');
             break;
         case 'CHILL':
-            document.querySelector('#outer-box').classList.add('chill');
+            outerBox.classList.add('chill');
             break;
         case 'ROMANTIC':
-            document.querySelector('#outer-box').classList.add('romantic');
-            
-
-
-            // Special thanks to Developers Today
-            // website for heart animation: https://medium.com/@developerstoday99/create-animated-hearts-87b3271ae774
-            // Function that creates a heart element with random properties
-            function createHeart() {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.style.width = `${Math.floor(Math.random() * 65) + 10}px`;
-                heart.style.height = heart.style.width;
-                heart.style.left = `${Math.floor(Math.random() * 100) + 1}%`;
-                heart.style.background = `rgba(255, ${Math.floor(Math.random() * 25) + 100 - 25}, ${Math.floor(Math.random() * 25) + 100}, 1)`;
-                const duration = Math.floor(Math.random() * 5) + 5;
-                heart.style.animation = `love2 ${duration}s ease`;
-                return heart;
-            }
- 
-            // Get the container element where the hearts will be added
-            const container = document.querySelector('#outer-box');
- 
-            // Function that removes hearts that have gone off screen
-            function removeHearts() {
-                const hearts = container.querySelectorAll('.heart');
-                hearts.forEach((heart) => {
-                const top = parseFloat(getComputedStyle(heart).getPropertyValue('top'));
-                const width = parseFloat(getComputedStyle(heart).getPropertyValue('width'));
-                if (top <= -100 || width >= 150) {
-                    heart.remove();
-                }
-                });
-            }
- 
-            // Define a function that repeatedly adds hearts to the container
-            function addHeart() {
-                const heart1 = createHeart();
-                const heart2 = createHeart();
-                container.appendChild(heart1);
-                container.appendChild(heart2);
-                setTimeout(removeHearts, 1000);
-            }
-           
-            // Start the animation loop
-            const love2 = setInterval(addHeart, 500);
-
-
+            outerBox.classList.add('romantic');
+            createHearts();
             break;
-
         case 'INSPIRED':
-            document.querySelector('#outer-box').classList.add('inspired');
+            outerBox.classList.add('inspired');
             break;
         case 'SPONTANEOUS':
-            document.querySelector('#outer-box').classList.add('spontaneous');
+            outerBox.classList.add('spontaneous');
             break;
         case 'HYPE':
-            document.querySelector('#outer-box').classList.add('hype');
+            outerBox.classList.add('hype');
             break;
         default:
-            document.querySelector('#outer-box').classList.add('default');
+            outerBox.classList.add('default');
+    }
+}
+
+// Function to create and add bubbles
+function createBubbles() {
+    console.log('Creating bubbles for HAPPY theme');
+    const bubbleContainer = document.createElement("div");
+    bubbleContainer.style.position = 'relative';
+    bubbleContainer.style.overflow = 'hidden';
+    bubbleContainer.classList.add('bubble-container');
+    document.querySelector('#outer-box').appendChild(bubbleContainer);
+
+    for (let i = 1; i <= 10; i++) {
+        const bubble = document.createElement("div");
+        bubble.classList.add('bubble', `x${i}`);
+        bubble.style.position = 'absolute';
+        bubbleContainer.appendChild(bubble);
+    }
+}
+
+// Function to create and add hearts
+function createHearts() {
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.position = 'absolute';
+        heart.style.width = `${Math.floor(Math.random() * 65) + 10}px`;
+        heart.style.height = heart.style.width;
+        heart.style.left = `${Math.floor(Math.random() * 100)}%`;
+        heart.style.background = `rgba(255, ${Math.floor(Math.random() * 25) + 100 - 25}, ${Math.floor(Math.random() * 25) + 100}, 1)`;
+        const duration = Math.floor(Math.random() * 5) + 5;
+        heart.style.animation = `love2 ${duration}s ease`;
+        return heart;
+    }
+
+    const container = document.querySelector('#outer-box');
+    container.style.position = 'relative';
+    container.style.overflow = 'hidden';
+
+    function removeHearts() {
+        const hearts = container.querySelectorAll('.heart');
+        hearts.forEach((heart) => {
+            const top = parseFloat(getComputedStyle(heart).getPropertyValue('top'));
+            if (top <= -100) {
+                heart.remove();
+            }
+        });
+    }
+
+    function addHeart() {
+        const heart1 = createHeart();
+        container.appendChild(heart1);
+        setTimeout(removeHearts, 1000);
+    }
+
+    const love2 = setInterval(addHeart, 500);
+    container.setAttribute('data-love-interval', love2);
+}
+
+// Function to clear animations
+function clearAnimations() {
+    const outerBox = document.querySelector('#outer-box');
+    
+    // Clear bubbles
+    const bubbleContainer = outerBox.querySelector('.bubble-container');
+    if (bubbleContainer) {
+        bubbleContainer.remove();
+    }
+
+    // Clear hearts
+    const hearts = outerBox.querySelectorAll('.heart');
+    hearts.forEach(heart => heart.remove());
+
+    // Clear interval for hearts
+    const loveInterval = outerBox.getAttribute('data-love-interval');
+    if (loveInterval) {
+        clearInterval(loveInterval);
+        outerBox.removeAttribute('data-love-interval');
     }
 }
 
