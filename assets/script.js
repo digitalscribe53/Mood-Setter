@@ -120,11 +120,46 @@ function setTheme() {
     console.log('Setting theme based on mood:',mood);
 
     const outerBox = document.querySelector('#outer-box');
-    outerBox.classList.remove('happy', 'sad', 'angry', 'chill', 'love', 'inspired', 'hype', 'default');
+    outerBox.classList.remove('happy', 'sad', 'angry', 'chill', 'romantic', 'inspired', 'hype', 'default');
 
     switch (mood.toUpperCase()) {
         case 'HAPPY':
             document.querySelector('#outer-box').classList.add('happy');
+               
+                // Function that creates bubble animation
+                const bubbleContainer = document.createElement("div");
+                document.querySelector('#outer-box').appendChild(bubbleContainer);
+                const bubble1 = document.createElement("div");
+                bubble1.classList.add('bubble','x1');
+                bubbleContainer.appendChild(bubble1);
+                const bubble2 = document.createElement("div");
+                bubble2.classList.add('bubble','x2');
+                bubbleContainer.appendChild(bubble2);
+                const bubble3 = document.createElement("div");
+                bubble3.classList.add('bubble','x3');
+                bubbleContainer.appendChild(bubble3);
+                const bubble4 = document.createElement("div");
+                bubble4.classList.add('bubble','x4');
+                bubbleContainer.appendChild(bubble4);
+                const bubble5 = document.createElement("div");
+                bubble5.classList.add('bubble','x5');
+                bubbleContainer.appendChild(bubble5);
+                const bubble6 = document.createElement("div");
+                bubble6.classList.add('bubble','x6');
+                bubbleContainer.appendChild(bubble6);
+                const bubble7 = document.createElement("div");
+                bubble7.classList.add('bubble','x7');
+                bubbleContainer.appendChild(bubble7);
+                const bubble8 = document.createElement("div");
+                bubble8.classList.add('bubble','x8');
+                bubbleContainer.appendChild(bubble8);
+                const bubble9 = document.createElement("div");
+                bubble9.classList.add('bubble','x9');
+                bubbleContainer.appendChild(bubble9);
+                const bubble10 = document.createElement("div");
+                bubble10.classList.add('bubble','x10');
+                bubbleContainer.appendChild(bubble10);
+                
             break;
         case 'SAD':
             document.querySelector('#outer-box').classList.add('sad');
@@ -138,9 +173,56 @@ function setTheme() {
         case 'CHILL':
             document.querySelector('#outer-box').classList.add('chill');
             break;
-        case 'LOVE':
-            document.querySelector('#outer-box').classList.add('love');
+        case 'ROMANTIC':
+            document.querySelector('#outer-box').classList.add('romantic');
+            
+
+
+            // Special thanks to Developers Today
+            // website for heart animation: https://medium.com/@developerstoday99/create-animated-hearts-87b3271ae774
+            // Function that creates a heart element with random properties
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.width = `${Math.floor(Math.random() * 65) + 10}px`;
+                heart.style.height = heart.style.width;
+                heart.style.left = `${Math.floor(Math.random() * 100) + 1}%`;
+                heart.style.background = `rgba(255, ${Math.floor(Math.random() * 25) + 100 - 25}, ${Math.floor(Math.random() * 25) + 100}, 1)`;
+                const duration = Math.floor(Math.random() * 5) + 5;
+                heart.style.animation = `love2 ${duration}s ease`;
+                return heart;
+            }
+ 
+            // Get the container element where the hearts will be added
+            const container = document.querySelector('#outer-box');
+ 
+            // Function that removes hearts that have gone off screen
+            function removeHearts() {
+                const hearts = container.querySelectorAll('.heart');
+                hearts.forEach((heart) => {
+                const top = parseFloat(getComputedStyle(heart).getPropertyValue('top'));
+                const width = parseFloat(getComputedStyle(heart).getPropertyValue('width'));
+                if (top <= -100 || width >= 150) {
+                    heart.remove();
+                }
+                });
+            }
+ 
+            // Define a function that repeatedly adds hearts to the container
+            function addHeart() {
+                const heart1 = createHeart();
+                const heart2 = createHeart();
+                container.appendChild(heart1);
+                container.appendChild(heart2);
+                setTimeout(removeHearts, 1000);
+            }
+           
+            // Start the animation loop
+            const love2 = setInterval(addHeart, 500);
+
+
             break;
+
         case 'INSPIRED':
             document.querySelector('#outer-box').classList.add('inspired');
             break;
