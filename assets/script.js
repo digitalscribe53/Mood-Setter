@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveUserButton = document.getElementById('saveUser');
     const myMoodButton = document.getElementById('myMoodButton');
     const userForm = document.getElementById('userForm');
-
     const musicBox = document.getElementById('music-box');
+    const welcomeMessageContainer = document.getElementById('welcome-message'); // Welcome message container
 
     // Function to open the modal and clear the form inputs
     const openModal = () => {
@@ -16,56 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to close the modal
     const closeModal = () => {
         userModal.classList.remove('is-active');
-    };
-
-    // Function to fetch data from YouTube API
-    const fetchYouTubeData = (mood) => {
-       
-        const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${mood}&videoSyndicated=true&maxResults=5&key=AIzaSyDVp1DyejHjZNCIXEyHK7Uia4M86wviqQg`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-
-                // Check if there are any items in the response
-                if (data.items && data.items.length > 0) {
-                    const videoIds = data.items.map(item => item.id.videoId).join(',');
-                    fetchVideoDetails(videoIds);
-                }
-            })
-            .catch(error => console.error('Error fetching YouTube data:', error));
-    };
-
-    // Function to fetch video details
-    const fetchVideoDetails = (videoIds) => {
-        
-        const videoDetailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoIds}&key=AIzaSyDVp1DyejHjZNCIXEyHK7Uia4M86wviqQg`;
-
-        fetch(videoDetailsUrl)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-
-                for (let video of data.items) {
-                    if (video.status.embeddable) {
-                        // Create an iframe element to embed the YouTube video
-                        const iframe = document.createElement('iframe');
-                        iframe.width = '100%';
-                        iframe.height = '100%';
-                        iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1`;
-                        iframe.frameBorder = '0';
-                        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                        iframe.allowFullscreen = true;
-
-                        // Clear previous content and append the iframe to the music box
-                        musicBox.innerHTML = '';
-                        musicBox.appendChild(iframe);
-                        break; // Stop after embedding the first embeddable video
-                    }
-                }
-            })
-            .catch(error => console.error('Error fetching video details:', error));
     };
 
     // Function to save user data
@@ -97,12 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetchGifData(user.interests);
         fetchYouTubeData(user.mood, musicBox); // Fetch YouTube data based on the mood
-
         console.log(user);
         closeModal();
+        displayWelcomeMessage();
+    };
 
-        // Fetch YouTube data based on mood
-        fetchYouTubeData(mood);
+    // Function to display welcome message
+    const displayWelcomeMessage = function() {
+        let userDataArray = JSON.parse(localStorage.getItem('userDataArray')) || [];
+        let welcomeMessage = "Welcome, click the button to set your mood";
+        if (userDataArray.length > 0) {
+            let lastUser = userDataArray[userDataArray.length - 1];
+            welcomeMessage = `Welcome, ${lastUser.name}. Click the button to set your mood.`;
+        }
+        welcomeMessageContainer.innerHTML = `<div class="notification is-primary">${welcomeMessage}</div>`;
     };
 
     // Event listeners
@@ -115,6 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Event listener for "My Mood" button to open the modal
     myMoodButton.addEventListener('click', openModal);
+
+    // Display welcome message on page load
+    displayWelcomeMessage();
 });
 
 // GIPHY API Key
@@ -123,6 +84,7 @@ const GIPHYAPIKey = "ATZHOCugJY4c84N9kSARyOvLB2gL4xi6";
 // Function to fetch GIF data from GIPHY API
 function fetchGifData(userInterests) {
     const GIFQueryURL = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHYAPIKey}&q=${userInterests}&limit=5&offset=0&rating=r&lang=en&bundle=messaging_non_clips`;
+
     console.log(GIFQueryURL);
 
     fetch(GIFQueryURL)
@@ -130,13 +92,16 @@ function fetchGifData(userInterests) {
             return response.json();
         })
         .then(function (GIFdata) {
+            let gifDisplay = document.querySelector('#gif-box');
+            // Clear previous GIFs
+            gifDisplay.innerHTML = '';
+
             for (let i = 0; i < GIFdata.data.length; i++) {
                 let figure = document.createElement('figure');
                 let image = document.createElement('img');
                 image.src = GIFdata.data[i].images.fixed_height.url;
                 image.alt = GIFdata.data[i].title;
                 figure.append(image);
-                let gifDisplay = document.querySelector('#gif-box')
                 gifDisplay.append(figure);
             }
         })
@@ -144,14 +109,13 @@ function fetchGifData(userInterests) {
 
 // Function to set the theme based on the user's mood
 function setTheme() {
-    // pulls the most recent user from local storage
     var savedUserData = JSON.parse(localStorage.getItem('userDataArray'));
     if (!savedUserData || savedUserData.length === 0) {
         console.log('No user data found in local storage.');
         return;
     }
-    var lastSavedUser = savedUserData[savedUserData.length - 1];
 
+    var lastSavedUser = savedUserData[savedUserData.length - 1]; // This will pull the most recently added user in the local storage
     var mood = lastSavedUser.mood;
     console.log('Setting theme based on mood:',mood);
 
@@ -168,9 +132,11 @@ function setTheme() {
         case 'ANGRY':
             document.querySelector('#outer-box').classList.add('angry');
             break;
-        case 'CHILL' :
+        case 'CALM':
+            document.querySelector('#outer-box').classList.add('calm');
+            break;
+        case 'CHILL':
             document.querySelector('#outer-box').classList.add('chill');
-
             break;
         case 'LOVE':
             document.querySelector('#outer-box').classList.add('love');
@@ -178,30 +144,26 @@ function setTheme() {
         case 'INSPIRED':
             document.querySelector('#outer-box').classList.add('inspired');
             break;
-
-        case 'HYPE' :
+        case 'SPONTANEOUS':
+            document.querySelector('#outer-box').classList.add('spontaneous');
+            break;
+        case 'HYPE':
             document.querySelector('#outer-box').classList.add('hype');
-
             break;
         default:
             document.querySelector('#outer-box').classList.add('default');
     }
-
-    // takes the mood key from the user object 
-    // uses switch case to handle their mood
-
 }
 
 // Function to fetch data from YouTube API
 const fetchYouTubeData = (mood, musicBox) => {
-    const apiKey = 'AIzaSyDVp1DyejHjZNCIXEyHK7Uia4M86wviqQg'; // Replace with your actual API key
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${mood}&videoSyndicated=true&maxResults=5&key=${apiKey}`;
-
+    const apiKey = 'AIzaSyBn-nf1Q4mq1qw_QElG_AKuMiAQNaQZ3c8'; 
+    const searchTerm = `${mood} beat`; // Append "beat" to the user's mood
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchTerm)}&videoSyndicated=true&videoEmbeddable=true&maxResults=5&key=${apiKey}`;
     fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log(data);
-
             // Check if there are any items in the response
             if (data.items && data.items.length > 0) {
                 const videoIds = data.items.map(item => item.id.videoId).join(',');
@@ -213,16 +175,14 @@ const fetchYouTubeData = (mood, musicBox) => {
 
 // Function to fetch video details
 const fetchVideoDetails = (videoIds, musicBox) => {
-    const apiKey = 'AIzaSyDVp1DyejHjZNCIXEyHK7Uia4M86wviqQg'; // Replace with your actual API key
+    const apiKey = 'AIzaSyBn-nf1Q4mq1qw_QElG_AKuMiAQNaQZ3c8'; 
     const videoDetailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status&id=${videoIds}&key=${apiKey}`;
-
     fetch(videoDetailsUrl)
         .then(response => response.json())
         .then(data => {
             console.log(data);
-
             for (let video of data.items) {
-                if (video.status.embeddable) {
+                if (video.status.embeddable) { // Filter out non-embeddable videos
                     // Create an iframe element to embed the YouTube video
                     const iframe = document.createElement('iframe');
                     iframe.width = '100%';
@@ -231,7 +191,6 @@ const fetchVideoDetails = (videoIds, musicBox) => {
                     iframe.frameBorder = '0';
                     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
                     iframe.allowFullscreen = true;
-
                     // Clear previous content and append the iframe to the music box
                     musicBox.innerHTML = '';
                     musicBox.appendChild(iframe);
