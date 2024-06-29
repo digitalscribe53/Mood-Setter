@@ -10,6 +10,11 @@ html, body {
     margin: 0;
     padding: 0;
 }
+.aclonica-regular {
+    font-family: "Aclonica", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}  
 #outer-box {
     width: 100%;
     height: 100%;
@@ -20,14 +25,15 @@ html, body {
     background-color: black;
     margin: 0; 
     position: relative;
+    overflow: hidden;  
 }
 #button-box {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 #music-box, #gif-box {
     height: 35%;
     width: 60%;
-    background-color: pink;
+    background-color: #beb7b8;
     margin: 10px;
     box-shadow: 0 0 50px 15px rgba(0, 255, 255, 0.4);
 }
@@ -94,6 +100,7 @@ html, body {
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
 }
 
+
 @media screen and (max-width: 900px) {
     #music-box, #gif-box {
         width: 70%;
@@ -106,13 +113,16 @@ html, body {
     #outer-box {
         padding-top: 0;
         
+        
     }
     #welcome-message {
-        margin-top: 0; 
+        margin-top: 10px; 
         margin-bottom: 0;
+        
     }
     #button-box {
         margin-top: 0; 
+        margin-bottom: 10px;
         padding: 0;
     }
     #music-box, #gif-box {
@@ -132,7 +142,8 @@ html, body {
         transition: width 0.5s ease, height 0.5s ease;
     }
 }
-/*Love Animations*/
+
+/* Romantic Theme Animations*/
 .bg_heart {
     position: relative;
     top: 0;
@@ -141,7 +152,6 @@ html, body {
     height: 100%;
     overflow: hidden
  }
-
 
 .heart {
     position: absolute;
@@ -217,10 +227,10 @@ html, body {
 
 @keyframes animateBubble {
     0% {
-        margin-top: 1000px;
+        transform: translateY(1000px);
     }
     100% {
-        margin-top: -100%;
+        transform: translateY(-100%);
     }
 }
 
@@ -247,12 +257,12 @@ html, body {
 
 @keyframes sideWays {
     0% {
-        margin-left:0px;
+        transform: translateX(0px);
     }
     100% {
-        margin-left:50px;
+        transform: translateX(50px);
     }
-}*/
+}
 
 
 /* ANIMATIONS */
@@ -400,21 +410,25 @@ html, body {
 
 /* OBJECTS */
 
-
-.bubble {
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-   
-    -webkit-box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
-    -moz-box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
-   
-    height: 200px;
+.bubble-container {
     position: absolute;
-    width: 200px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
 }
 
+.bubble {
+    border-radius: 50%;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2), inset 0px 10px 30px 5px rgba(255, 255, 255, 1);
+    height: 200px;
+    width: 200px;
+    background: rgba(255, 255, 255, 0.5); /* Added background color */
+    animation: animateBubble 25s linear infinite, sideWays 2s ease-in-out infinite alternate;
+    pointer-events: none; /* Make bubbles non-interactive */
+}
 
 .bubble:after {
     background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%); /* FF3.6+ */
