@@ -168,8 +168,13 @@ function setTheme() {
 function createBubbles() {
     console.log('Creating bubbles for HAPPY theme');
     const bubbleContainer = document.createElement("div");
-    bubbleContainer.style.position = 'relative';
+    bubbleContainer.style.position = 'absolute';
+    bubbleContainer.style.top = '0';
+    bubbleContainer.style.left = '0';
+    bubbleContainer.style.width = '100%';
+    bubbleContainer.style.height = '100%';
     bubbleContainer.style.overflow = 'hidden';
+    bubbleContainer.style.pointerEvents = 'none'; // Make the container non-interactive
     bubbleContainer.classList.add('bubble-container');
     document.querySelector('#outer-box').appendChild(bubbleContainer);
 
@@ -177,10 +182,16 @@ function createBubbles() {
         const bubble = document.createElement("div");
         bubble.classList.add('bubble', `x${i}`);
         bubble.style.position = 'absolute';
+        bubble.style.pointerEvents = 'none'; // Make the bubbles non-interactive
         bubbleContainer.appendChild(bubble);
     }
 }
 
+
+
+
+// Special thanks to Developers Today
+// website for heart animation: https://medium.com/@developerstoday99/create-animated-hearts-87b3271ae774
 // Function to create and add hearts
 function createHearts() {
     function createHeart() {
